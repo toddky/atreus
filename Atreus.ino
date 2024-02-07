@@ -55,6 +55,9 @@ enum {
 
 #define Key_Tilde       LSHIFT(Key_Backtick)
 
+#define _______  XXX
+
+#define __CTL__  MO(CONTROL)
 #define __NAV__  MO(NAVIGATION)
 #define __NUM__  MO(NUMBER)
 
@@ -63,6 +66,28 @@ enum {
 #define _PREV_   Consumer_ScanPreviousTrack
 #define _VOLU_   Consumer_VolumeIncrement
 #define _VOLD_   Consumer_VolumeDecrement
+
+#define _ALT_    Key_LeftAlt
+#define _BKSP_   Key_Backspace
+#define _BSLSH_  Key_Backslash
+#define _BKTCK_  Key_Backtick
+#define _CTRL_   Key_LeftControl
+#define _DEL_    Key_Delete
+#define _END_    Key_End
+#define _ENTER_  Key_Enter
+#define _EQL_    Key_Equals
+#define _ESC_    Key_Escape
+#define _GUI_    Key_LeftGui
+#define _HOME_   Key_Home
+#define _INS_    Key_Insert
+#define _PGUP_   Key_PageUp
+#define _PGDN_   Key_PageDown
+#define _PIPE_   Key_Pipe
+#define _PLUS_   Key_Plus
+#define _SHIFT_  Key_LeftShift
+#define _SPACE_  Key_Space
+#define _TAB_    Key_Tab
+#define _TILDE_  Key_Tilde
 
 #define _LEFT_   Key_LeftArrow
 #define _RIGHT_  Key_RightArrow
@@ -87,58 +112,57 @@ enum {
 KEYMAPS(
   [QWERTY] = KEYMAP_STACKED
   (
-       Key_Q   ,Key_W   ,Key_E       ,Key_R         ,Key_T
-      ,Key_A   ,Key_S   ,Key_D       ,Key_F         ,Key_G
-      ,Key_Z   ,Key_X   ,Key_C       ,Key_V         ,Key_B, Key_Backtick
-      ,_LOCK_ ,Key_Tab ,Key_LeftGui ,Key_LeftShift ,__NUM__ ,__NAV__
+    Key_Q  ,Key_W  ,Key_E  ,Key_R  ,Key_T  ,
+    Key_A  ,Key_S  ,Key_D  ,Key_F  ,Key_G  ,
+    Key_Z  ,Key_X  ,Key_C  ,Key_V  ,Key_B  ,_______,
+    _LOCK_ ,_______,_______,_______,__NUM__,__NAV__,
 
-                     ,Key_Y     ,Key_U      ,Key_I     ,Key_O      ,Key_P
-                     ,Key_H     ,Key_J      ,Key_K     ,Key_L      ,Key_Semicolon
-       ,Key_Backspace,Key_N     ,Key_M      ,Key_Comma ,Key_Period ,Key_Slash
-       ,Key_LeftAlt  ,Key_Space ,__NAV__    ,Key_Minus ,Key_Quote  ,Key_Enter
+            Key_Y  ,Key_U  ,Key_I    ,Key_O     ,Key_P,
+            Key_H  ,Key_J  ,Key_K    ,Key_L     ,Key_Semicolon,
+    _BKSP_ ,Key_N  ,Key_M  ,Key_Comma,Key_Period,Key_Slash,
+    _SHIFT_,_SPACE_,__NAV__,Key_Minus,Key_Quote ,Key_Enter
   ),
 
   [NAVIGATION] = KEYMAP_STACKED
   (
-      Key_Esc    , Key_Delete , Key_PageUp , Key_PageDown   , Key_Home,
-      Key_Enter  , Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_Backspace,
-      _UNDO_     , _CUT_      , _COPY_     , _PASTE_        , Key_End      , ___,
-      TG(CONTROL), ___        , ___        , ___            , ___          , ___,
+    _ESC_  ,_DEL_  ,_PGUP_ ,_PGDN_ ,_HOME_ ,
+    _ENTER_,_GUI_  ,_ALT_  ,_CTRL_ ,_BKSP_ ,
+    _UNDO_ ,_CUT_  ,_COPY_ ,_PASTE_,_END_  ,_______,
+    __CTL__,_______,_______,_______,_______,_______,
 
-                   ___    ,    ___, ___  , ___    , ___,
-                   _LEFT_ , _DOWN_, _UP_ , _RIGHT_, ___,
-      Key_And    , Key_Star    , Key_1, Key_2     , Key_3, Key_Plus,
-      Key_LeftAlt, Key_Space   , ___  , Key_Period, Key_0, Key_Equals
-   ),
+            _______,_______,_INS_  ,_______,_______,
+            _LEFT_ ,_DOWN_ ,_UP_   ,_RIGHT_,_______,
+    _______,_______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,_______
+  ),
 
   [NUMBER] = KEYMAP_STACKED
   (
-      Key_Tilde   , Key_9   , Key_8  , Key_7,    ___,
-      Key_0       , Key_3   , Key_2  , Key_1,    ___,
-      Key_Backtick, Key_6   , Key_5  , Key_4,    ___, ___,
-      ___         , ___     , ___    , ___  ,    ___, ___,
+    _TILDE_,Key_9  ,Key_8  ,Key_7  ,_______,
+    Key_0  ,Key_3  ,Key_2  ,Key_1  ,_______,
+    _BKTCK_,Key_6  ,Key_5  ,Key_4  ,_______,_______,
+    _______,_______,_______,_______,_______,_______,
 
-                   Key_PageUp  , Key_7, Key_8     , Key_Backslash, Key_Pipe,
-                   Key_PageDown, Key_4, Key_5     , Key_6, ___,
-      Key_And     ,Key_Star    , Key_1, Key_2     , Key_3, Key_Plus,
-      Key_LeftAlt ,Key_Space   , ___  , Key_Period, Key_0, Key_Equals
-   ),
+            _______,_______,_______,_BSLSH_,_PIPE_ ,
+            _______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,_PLUS_ ,
+    _______,_______,_______,_______,_EQL_  ,_PLUS_
+  ),
 
   [CONTROL] = KEYMAP_STACKED
   (
-      Key_Insert           , _VOLU_, _VOLD_ , Key_End, Key_PageUp,
-      Key_Delete           , _PREV_, _PLAY_ , _NEXT_ , Key_Tab,
-      M(MACRO_VERSION_INFO), ___   , XXX    , XXX    , ___,        ___,
-      MoveToLayer(QWERTY)  , ___   , ___    , ___    , ___,        ___,
+    _______              ,_VOLU_ ,_VOLD_ ,_______,_______,
+    _______              ,_PREV_ ,_PLAY_ ,_NEXT_ ,_______,
+    M(MACRO_VERSION_INFO),_______,_______,_______,_______,_______,
+    MoveToLayer(QWERTY)  ,_______,_______,_______,_______,_______,
 
-                Key_UpArrow   ,Key_F7              ,Key_F8          ,Key_F9         ,Key_F10,
-                Key_DownArrow ,Key_F4              ,Key_F5          ,Key_F6         ,Key_F11,
-      ___      ,XXX           ,Key_F1              ,Key_F2          ,Key_F3         ,Key_F12,
-      ___      ,___           ,MoveToLayer(QWERTY) ,Key_PrintScreen ,Key_ScrollLock ,Consumer_PlaySlashPause
-   )
+            _______,Key_F7 ,Key_F8 ,Key_F9 ,Key_F10,
+            _______,Key_F4 ,Key_F5 ,Key_F6 ,Key_F11,
+    _______,_______,Key_F1 ,Key_F2 ,Key_F3 ,Key_F12,
+    _______,_______,_______,_______,_______,_______
+  )
 )
 // clang-format on
-
 
 
 KALEIDOSCOPE_INIT_PLUGINS(
