@@ -35,9 +35,6 @@
 #include "Kaleidoscope-DynamicMacros.h"
 #include "Kaleidoscope-LayerNames.h"
 
-#define MO(n) ShiftToLayer(n)
-#define TG(n) LockLayer(n)
-
 enum {
   MACRO_QWERTY,
   MACRO_VERSION_INFO
@@ -53,13 +50,11 @@ enum {
 #define Key_Star        LSHIFT(Key_8)
 #define Key_Plus        LSHIFT(Key_Equals)
 
+#define Key_DoubleQuote LSHIFT(Key_Quote)
 #define Key_Tilde       LSHIFT(Key_Backtick)
+#define Key_Underscore  LSHIFT(Key_Minus)
 
 #define _______  XXX
-
-#define __CTL__  MO(CONTROL)
-#define __NAV__  MO(NAVIGATION)
-#define __NUM__  MO(NUMBER)
 
 #define _PLAY_   Consumer_PlaySlashPause
 #define _NEXT_   Consumer_ScanNextTrack
@@ -71,8 +66,11 @@ enum {
 #define _BKSP_   Key_Backspace
 #define _BSLSH_  Key_Backslash
 #define _BKTCK_  Key_Backtick
+#define _COMMA_  Key_Comma
 #define _CTRL_   Key_LeftControl
 #define _DEL_    Key_Delete
+#define _DOT_    Key_Period
+#define _DQUOT_  Key_DoubleQuote
 #define _END_    Key_End
 #define _ENTER_  Key_Enter
 #define _EQL_    Key_Equals
@@ -80,33 +78,54 @@ enum {
 #define _GUI_    Key_LeftGui
 #define _HOME_   Key_Home
 #define _INS_    Key_Insert
+#define _MINUS_  Key_Minus
 #define _PGUP_   Key_PageUp
 #define _PGDN_   Key_PageDown
 #define _PIPE_   Key_Pipe
 #define _PLUS_   Key_Plus
+#define _QUOTE_  Key_Quote
 #define _SHIFT_  Key_LeftShift
+#define _SLASH_  Key_Slash
+#define _SMCLN_  Key_Semicolon
 #define _SPACE_  Key_Space
 #define _TAB_    Key_Tab
 #define _TILDE_  Key_Tilde
+#define _UNDSC_  Key_Underscore
+
+#define _LPRN_ Key_LeftParen
+#define _RPRN_ Key_RightParen
+#define _LBRC_ Key_LeftBracket
+#define _RBRC_ Key_RightBracket
+#define _LCBR_ Key_LeftCurlyBracket
+#define _RCBR_ Key_RightCurlyBracket
 
 #define _LEFT_   Key_LeftArrow
 #define _RIGHT_  Key_RightArrow
 #define _DOWN_   Key_DownArrow
 #define _UP_     Key_UpArrow
 
+#define _LOCK_   LCTRL(LGUI(Key_Q))
+#define _CTL_F_  LCTRL(Key_F)
 #define _UNDO_   LGUI(Key_Z)
 #define _CUT_    LGUI(Key_X)
 #define _COPY_   LGUI(Key_C)
 #define _PASTE_  LGUI(Key_V)
 
-#define _LOCK_   LCTRL(LGUI(Key_Q))
+#define MO(n) ShiftToLayer(n)
+#define TG(n) LockLayer(n)
 
 enum {
   QWERTY,
   NAVIGATION,
   NUMBER,
-  CONTROL
+  CONTROL,
+  FUNCTION,
 };
+
+#define __CTL__  MO(CONTROL)
+#define __FUN__  MO(FUNCTION)
+#define __NAV__  MO(NAVIGATION)
+#define __NUM__  MO(NUMBER)
 
 // clang-format off
 KEYMAPS(
@@ -115,12 +134,12 @@ KEYMAPS(
     Key_Q  ,Key_W  ,Key_E  ,Key_R  ,Key_T  ,
     Key_A  ,Key_S  ,Key_D  ,Key_F  ,Key_G  ,
     Key_Z  ,Key_X  ,Key_C  ,Key_V  ,Key_B  ,_______,
-    _LOCK_ ,_______,_______,_______,__NUM__,__NAV__,
+    _LOCK_ ,_______,_______,__CTL__,__NUM__,__NAV__,
 
-            Key_Y  ,Key_U  ,Key_I    ,Key_O     ,Key_P,
-            Key_H  ,Key_J  ,Key_K    ,Key_L     ,Key_Semicolon,
-    _BKSP_ ,Key_N  ,Key_M  ,Key_Comma,Key_Period,Key_Slash,
-    _SHIFT_,_SPACE_,__NAV__,Key_Minus,Key_Quote ,Key_Enter
+            Key_Y  ,Key_U  ,Key_I  ,Key_O  ,Key_P,
+            Key_H  ,Key_J  ,Key_K  ,Key_L  ,_SMCLN_,
+    _BKSP_ ,Key_N  ,Key_M  ,_COMMA_,_DOT_  ,_SLASH_,
+    _SHIFT_,_SPACE_,__FUN__,_______,_______,_______
   ),
 
   [NAVIGATION] = KEYMAP_STACKED
@@ -128,11 +147,11 @@ KEYMAPS(
     _ESC_  ,_DEL_  ,_PGUP_ ,_PGDN_ ,_HOME_ ,
     _ENTER_,_GUI_  ,_ALT_  ,_CTRL_ ,_BKSP_ ,
     _UNDO_ ,_CUT_  ,_COPY_ ,_PASTE_,_END_  ,_______,
-    __CTL__,_______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,_______,
 
             _______,_______,_INS_  ,_______,_______,
-            _LEFT_ ,_DOWN_ ,_UP_   ,_RIGHT_,_______,
-    _______,_______,_______,_______,_______,_______,
+            _LEFT_ ,_DOWN_ ,_UP_   ,_RIGHT_,_TAB_  ,
+    _______,_______,_______,_______,_______,_CTL_F_,
     _______,_______,_______,_______,_______,_______
   ),
 
@@ -143,10 +162,10 @@ KEYMAPS(
     _BKTCK_,Key_6  ,Key_5  ,Key_4  ,_______,_______,
     _______,_______,_______,_______,_______,_______,
 
-            _______,_______,_______,_BSLSH_,_PIPE_ ,
-            _______,_______,_______,_______,_______,
-    _______,_______,_______,_______,_______,_PLUS_ ,
-    _______,_______,_______,_______,_EQL_  ,_PLUS_
+            _______,_LPRN_ ,_LPRN_ ,_BSLSH_,_PIPE_ ,
+            _DQUOT_,_RCBR_ ,_RCBR_ ,_MINUS_,_UNDSC_,
+    _______,_QUOTE_,_RBRC_ ,_RBRC_ ,_EQL_  ,_PLUS_ ,
+    _______,_______,_______,_______,_______,_______
   ),
 
   [CONTROL] = KEYMAP_STACKED
@@ -160,7 +179,21 @@ KEYMAPS(
             _______,Key_F4 ,Key_F5 ,Key_F6 ,Key_F11,
     _______,_______,Key_F1 ,Key_F2 ,Key_F3 ,Key_F12,
     _______,_______,_______,_______,_______,_______
+  ),
+
+  [FUNCTION] = KEYMAP_STACKED
+  (
+    Key_F12,Key_F9 ,Key_F8 ,Key_F7 ,_______,
+    Key_F10,Key_F3 ,Key_F2 ,Key_F1 ,_______,
+    Key_F11,Key_F6 ,Key_F5 ,Key_F4 ,_______,_______,
+    _______,_______,_______,_______,_______,_______,
+
+            _______,_______,_______,_______,_______,
+            _______,_CTRL_ ,_ALT_  ,_GUI_  ,_SHIFT_,
+    _______,_______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,_______
   )
+
 )
 // clang-format on
 
