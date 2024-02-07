@@ -55,14 +55,32 @@ enum {
 
 #define Key_Tilde       LSHIFT(Key_Backtick)
 
-#define __NAV__ MO(NAVIGATION)
-#define __NUM__ MO(NUMBER)
+#define __NAV__  MO(NAVIGATION)
+#define __NUM__  MO(NUMBER)
+
+#define _PLAY_   Consumer_PlaySlashPause
+#define _NEXT_   Consumer_ScanNextTrack
+#define _PREV_   Consumer_ScanPreviousTrack
+#define _VOLU_   Consumer_VolumeIncrement
+#define _VOLD_   Consumer_VolumeDecrement
+
+#define _LEFT_   Key_LeftArrow
+#define _RIGHT_  Key_RightArrow
+#define _DOWN_   Key_DownArrow
+#define _UP_     Key_UpArrow
+
+#define _UNDO_   LGUI(Key_Z)
+#define _CUT_    LGUI(Key_X)
+#define _COPY_   LGUI(Key_C)
+#define _PASTE_  LGUI(Key_V)
+
+#define _LOCK_   LCTRL(LGUI(Key_Q))
 
 enum {
   QWERTY,
   NAVIGATION,
   NUMBER,
-  UPPER
+  CONTROL
 };
 
 // clang-format off
@@ -71,8 +89,8 @@ KEYMAPS(
   (
        Key_Q   ,Key_W   ,Key_E       ,Key_R         ,Key_T
       ,Key_A   ,Key_S   ,Key_D       ,Key_F         ,Key_G
-      ,Key_Z   ,Key_X   ,Key_C       ,Key_V         ,Key_B,         Key_Backtick
-      ,Key_Esc ,Key_Tab ,Key_LeftGui ,Key_LeftShift ,__NUM__ ,__NAV__
+      ,Key_Z   ,Key_X   ,Key_C       ,Key_V         ,Key_B, Key_Backtick
+      ,_LOCK_ ,Key_Tab ,Key_LeftGui ,Key_LeftShift ,__NUM__ ,__NAV__
 
                      ,Key_Y     ,Key_U      ,Key_I     ,Key_O      ,Key_P
                      ,Key_H     ,Key_J      ,Key_K     ,Key_L      ,Key_Semicolon
@@ -82,41 +100,41 @@ KEYMAPS(
 
   [NAVIGATION] = KEYMAP_STACKED
   (
-       Key_Exclamation ,Key_At           ,Key_UpArrow   ,Key_Dollar           ,Key_Percent
-      ,Key_LeftParen   ,Key_LeftArrow    ,Key_DownArrow ,Key_RightArrow       ,Key_RightParen
-      ,Key_LeftBracket ,Key_RightBracket ,Key_Hash      ,Key_LeftCurlyBracket ,Key_RightCurlyBracket ,Key_Caret
-      ,TG(UPPER)       ,Key_Insert       ,Key_LeftGui   ,Key_LeftShift        ,Key_Delete         ,Key_LeftControl
+      Key_Esc    , Key_Delete , Key_PageUp , Key_PageDown   , Key_Home,
+      Key_Enter  , Key_LeftGui, Key_LeftAlt, Key_LeftControl, Key_Backspace,
+      _UNDO_     , _CUT_      , _COPY_     , _PASTE_        , Key_End      , ___,
+      TG(CONTROL), ___        , ___        , ___            , ___          , ___,
 
-                   ,Key_PageUp   ,Key_7 ,Key_8      ,Key_9 ,Key_Backspace
-                   ,Key_PageDown ,Key_4 ,Key_5      ,Key_6 ,___
-      ,Key_And     ,Key_Star     ,Key_1 ,Key_2      ,Key_3 ,Key_Plus
-      ,Key_LeftAlt ,Key_Space    ,___   ,Key_Period ,Key_0 ,Key_Equals
+                   ___    ,    ___, ___  , ___    , ___,
+                   _LEFT_ , _DOWN_, _UP_ , _RIGHT_, ___,
+      Key_And    , Key_Star    , Key_1, Key_2     , Key_3, Key_Plus,
+      Key_LeftAlt, Key_Space   , ___  , Key_Period, Key_0, Key_Equals
    ),
 
   [NUMBER] = KEYMAP_STACKED
   (
-      Key_Tilde    ,Key_9    ,Key_8   ,Key_7,    ___,
-      Key_0        ,Key_3    ,Key_2   ,Key_1,    ___,
-      Key_Backtick ,Key_6    ,Key_5   ,Key_4,    ___, ___,
-      ___          ,___      ,___     ,___  ,    ___, ___,
+      Key_Tilde   , Key_9   , Key_8  , Key_7,    ___,
+      Key_0       , Key_3   , Key_2  , Key_1,    ___,
+      Key_Backtick, Key_6   , Key_5  , Key_4,    ___, ___,
+      ___         , ___     , ___    , ___  ,    ___, ___,
 
-                   Key_PageUp   ,Key_7 ,Key_8      ,Key_9 ,Key_Backspace,
-                   Key_PageDown ,Key_4 ,Key_5      ,Key_6 ,___,
-      Key_And     ,Key_Star     ,Key_1 ,Key_2      ,Key_3 ,Key_Plus,
-      Key_LeftAlt ,Key_Space    ,___   ,Key_Period ,Key_0 ,Key_Equals
+                   Key_PageUp  , Key_7, Key_8     , Key_Backslash, Key_Pipe,
+                   Key_PageDown, Key_4, Key_5     , Key_6, ___,
+      Key_And     ,Key_Star    , Key_1, Key_2     , Key_3, Key_Plus,
+      Key_LeftAlt ,Key_Space   , ___  , Key_Period, Key_0, Key_Equals
    ),
 
-  [UPPER] = KEYMAP_STACKED
+  [CONTROL] = KEYMAP_STACKED
   (
-       Key_Insert            ,Key_Home                 ,Key_UpArrow   ,Key_End        ,Key_PageUp
-      ,Key_Delete            ,Key_LeftArrow            ,Key_DownArrow ,Key_RightArrow ,Key_PageDown
-      ,M(MACRO_VERSION_INFO) ,Consumer_VolumeIncrement ,XXX           ,XXX            ,___ ,___
-      ,MoveToLayer(QWERTY)   ,Consumer_VolumeDecrement ,___           ,___            ,___ ,___
+      Key_Insert           , _VOLU_, _VOLD_ , Key_End, Key_PageUp,
+      Key_Delete           , _PREV_, _PLAY_ , _NEXT_ , Key_Tab,
+      M(MACRO_VERSION_INFO), ___   , XXX    , XXX    , ___,        ___,
+      MoveToLayer(QWERTY)  , ___   , ___    , ___    , ___,        ___,
 
-                ,Key_UpArrow   ,Key_F7              ,Key_F8          ,Key_F9         ,Key_F10
-                ,Key_DownArrow ,Key_F4              ,Key_F5          ,Key_F6         ,Key_F11
-      ,___      ,XXX           ,Key_F1              ,Key_F2          ,Key_F3         ,Key_F12
-      ,___      ,___           ,MoveToLayer(QWERTY) ,Key_PrintScreen ,Key_ScrollLock ,Consumer_PlaySlashPause
+                Key_UpArrow   ,Key_F7              ,Key_F8          ,Key_F9         ,Key_F10,
+                Key_DownArrow ,Key_F4              ,Key_F5          ,Key_F6         ,Key_F11,
+      ___      ,XXX           ,Key_F1              ,Key_F2          ,Key_F3         ,Key_F12,
+      ___      ,___           ,MoveToLayer(QWERTY) ,Key_PrintScreen ,Key_ScrollLock ,Consumer_PlaySlashPause
    )
 )
 // clang-format on
