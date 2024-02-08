@@ -17,6 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+ // vim: et ts=2 sw=0 sts=0
+
 #ifndef BUILD_INFORMATION
 #define BUILD_INFORMATION "locally built on " __DATE__ " at " __TIME__
 #endif
@@ -92,12 +94,12 @@ enum {
 #define _TILDE_  Key_Tilde
 #define _UNDSC_  Key_Underscore
 
-#define _LPRN_ Key_LeftParen
-#define _RPRN_ Key_RightParen
-#define _LBRC_ Key_LeftBracket
-#define _RBRC_ Key_RightBracket
-#define _LCBR_ Key_LeftCurlyBracket
-#define _RCBR_ Key_RightCurlyBracket
+#define _LPRN_   Key_LeftParen
+#define _RPRN_   Key_RightParen
+#define _LBRC_   Key_LeftBracket
+#define _RBRC_   Key_RightBracket
+#define _LCBR_   Key_LeftCurlyBracket
+#define _RCBR_   Key_RightCurlyBracket
 
 #define _LEFT_   Key_LeftArrow
 #define _RIGHT_  Key_RightArrow
@@ -111,8 +113,8 @@ enum {
 #define _COPY_   LGUI(Key_C)
 #define _PASTE_  LGUI(Key_V)
 
-#define MO(n) ShiftToLayer(n)
-#define TG(n) LockLayer(n)
+#define MO(n)    ShiftToLayer(n)
+#define TG(n)    LockLayer(n)
 
 enum {
   QWERTY,
@@ -129,6 +131,10 @@ enum {
 
 // clang-format off
 KEYMAPS(
+
+  // =============================================================================
+  // QWERTY
+  // =============================================================================
   [QWERTY] = KEYMAP_STACKED
   (
     Key_Q  ,Key_W  ,Key_E  ,Key_R  ,Key_T  ,
@@ -142,6 +148,9 @@ KEYMAPS(
     _SHIFT_,_SPACE_,__FUN__,_______,_______,_______
   ),
 
+  // =============================================================================
+  // NAVIGATION
+  // =============================================================================
   [NAVIGATION] = KEYMAP_STACKED
   (
     _ESC_  ,_DEL_  ,_PGUP_ ,_PGDN_ ,_HOME_ ,
@@ -152,9 +161,12 @@ KEYMAPS(
             _______,_______,_INS_  ,_______,_______,
             _LEFT_ ,_DOWN_ ,_UP_   ,_RIGHT_,_TAB_  ,
     _______,_______,_______,_______,_______,_CTL_F_,
-    _______,_______,_______,_______,_______,_______
+    _SHIFT_,_______,_______,_______,_______,_______
   ),
 
+  // =============================================================================
+  // NUMBER
+  // =============================================================================
   [NUMBER] = KEYMAP_STACKED
   (
     _TILDE_,Key_9  ,Key_8  ,Key_7  ,_______,
@@ -162,12 +174,15 @@ KEYMAPS(
     _BKTCK_,Key_6  ,Key_5  ,Key_4  ,_______,_______,
     _______,_______,_______,_______,_______,_______,
 
-            _______,_LPRN_ ,_LPRN_ ,_BSLSH_,_PIPE_ ,
-            _DQUOT_,_RCBR_ ,_RCBR_ ,_MINUS_,_UNDSC_,
-    _______,_QUOTE_,_RBRC_ ,_RBRC_ ,_EQL_  ,_PLUS_ ,
-    _______,_______,_______,_______,_______,_______
+            _______,_LPRN_ ,_RPRN_ ,_BSLSH_,_PIPE_ ,
+            _DQUOT_,_LCBR_ ,_RCBR_ ,_MINUS_,_UNDSC_,
+    _______,_QUOTE_,_LBRC_ ,_RBRC_ ,_EQL_  ,_PLUS_ ,
+    _SHIFT_,_______,_______,_______,_______,_______
   ),
 
+  // =============================================================================
+  // CONTROL
+  // =============================================================================
   [CONTROL] = KEYMAP_STACKED
   (
     _______              ,_VOLU_ ,_VOLD_ ,_______,_______,
@@ -178,9 +193,12 @@ KEYMAPS(
             _______,Key_F7 ,Key_F8 ,Key_F9 ,Key_F10,
             _______,Key_F4 ,Key_F5 ,Key_F6 ,Key_F11,
     _______,_______,Key_F1 ,Key_F2 ,Key_F3 ,Key_F12,
-    _______,_______,_______,_______,_______,_______
+    _SHIFT_,_______,_______,_______,_______,_______
   ),
 
+  // =============================================================================
+  // FUNCTION
+  // =============================================================================
   [FUNCTION] = KEYMAP_STACKED
   (
     Key_F12,Key_F9 ,Key_F8 ,Key_F7 ,_______,
@@ -191,11 +209,11 @@ KEYMAPS(
             _______,_______,_______,_______,_______,
             _______,_CTRL_ ,_ALT_  ,_GUI_  ,_SHIFT_,
     _______,_______,_______,_______,_______,_______,
-    _______,_______,_______,_______,_______,_______
+    _SHIFT_,_______,_______,_______,_______,_______
   )
-
 )
 // clang-format on
+
 
 
 KALEIDOSCOPE_INIT_PLUGINS(
@@ -309,3 +327,4 @@ void setup() {
 void loop() {
   Kaleidoscope.loop();
 }
+
