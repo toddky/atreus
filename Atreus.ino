@@ -106,8 +106,13 @@ enum {
 #define _DOWN_   Key_DownArrow
 #define _UP_     Key_UpArrow
 
-#define _LOCK_   LCTRL(LGUI(Key_Q))
+#define _CTL_C_  LCTRL(Key_C)
 #define _CTL_F_  LCTRL(Key_F)
+#define _CTL_V_  LCTRL(Key_V)
+#define _CTL_X_  LCTRL(Key_X)
+#define _CTL_Z_  LCTRL(Key_Z)
+
+#define _LOCK_   LCTRL(LGUI(Key_Q))
 #define _UNDO_   LGUI(Key_Z)
 #define _CUT_    LGUI(Key_X)
 #define _COPY_   LGUI(Key_C)
@@ -155,7 +160,7 @@ KEYMAPS(
   (
     _ESC_  ,_DEL_  ,_PGUP_ ,_PGDN_ ,_HOME_ ,
     _ENTER_,_GUI_  ,_ALT_  ,_CTRL_ ,_BKSP_ ,
-    _UNDO_ ,_CUT_  ,_COPY_ ,_PASTE_,_END_  ,_______,
+    _CTL_Z_,_CTL_X_,_CTL_C_,_CTL_V_,_END_  ,_______,
     _______,_______,_______,_______,_______,_______,
 
             _______,_______,_INS_  ,_______,_______,
