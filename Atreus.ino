@@ -23,18 +23,19 @@
 #define BUILD_INFORMATION "locally built on " __DATE__ " at " __TIME__
 #endif
 
-#include <Kaleidoscope.h>
-#include <Kaleidoscope-DynamicMacros.h>
-#include <Kaleidoscope-EEPROM-Keymap.h>
-#include <Kaleidoscope-EEPROM-Settings.h>
-#include <Kaleidoscope-Escape-OneShot.h>
-#include <Kaleidoscope-FirmwareVersion.h>
-#include <Kaleidoscope-FocusSerial.h>
-#include <Kaleidoscope-LayerNames.h>
-#include <Kaleidoscope-Macros.h>
-#include <Kaleidoscope-MouseKeys.h>
-#include <Kaleidoscope-OneShot.h>
-#include <Kaleidoscope-Qukeys.h>
+#include "Kaleidoscope.h"
+#include "Kaleidoscope-EEPROM-Settings.h"
+#include "Kaleidoscope-EEPROM-Keymap.h"
+#include "Kaleidoscope-Escape-OneShot.h"
+#include "Kaleidoscope-FirmwareVersion.h"
+#include "Kaleidoscope-FocusSerial.h"
+#include "Kaleidoscope-Macros.h"
+#include "Kaleidoscope-MouseKeys.h"
+#include "Kaleidoscope-OneShot.h"
+#include "Kaleidoscope-Qukeys.h"
+#include "Kaleidoscope-SpaceCadet.h"
+#include "Kaleidoscope-DynamicMacros.h"
+#include "Kaleidoscope-LayerNames.h"
 
 enum {
   MACRO_QWERTY,
@@ -321,6 +322,11 @@ void setup() {
   LayerNames.reserve_storage(63);
 
   Layer.move(EEPROMSettings.default_layer());
+
+  // To avoid any surprises, SpaceCadet is turned off by default. However, it
+  // can be permanently enabled via Chrysalis, so we should only disable it if
+  // no configuration exists.
+  SpaceCadetConfig.disableSpaceCadetIfUnconfigured();
 }
 
 void loop() {
